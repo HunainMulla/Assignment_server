@@ -19,7 +19,7 @@ router.get('/all-users', async (req, res) => {
 })
 
 router.post('/claim-points',async (req, res) => {
-    const { userId, point } = req.body;
+    const { userId, point,currentPoint } = req.body;
     console.log(userId,point);
     try{ 
        await UserModel.updateOne(
@@ -27,7 +27,7 @@ router.post('/claim-points',async (req, res) => {
             { $set: { totalPoints: point },
             $push: {
                 pointsHistory: {
-                  point: point,
+                  point: currentPoint,
                   date: new Date() // add current date/time
                 }
               } // update
